@@ -1,0 +1,72 @@
+
+#include <stdio.h>
+#include <math.h>
+#include <locale.h>
+#define MAT 3      //Definindo o tamanho da matriz
+ 
+int determinante(int matriz[][MAT], int ordem);                       //Função do calculo da determinante 
+int cofator(int matriz[][MAT], int ordem, int fila, int coluna);      //Método do cofator
+ 
+int main() {
+	
+   int matriz[MAT][MAT];       //Matriz
+   int i, j;                  //Componentes da matriz
+   int ordem = 3;            //Tamanho da matriz, 3X3
+   setlocale (LC_ALL,"");   //Colocar o texto em português, permitindo acentos 
+   
+   printf("\nInsira os elementos da matriz 3X3:\n\n");  // Inserir os elementos da matriz
+   for (i = 0; i < ordem; i++) {
+      for (j = 0; j < ordem; j++) {
+      	 printf ("\nElemento[%d][%d] = ", i + 1, j + 1);
+         scanf("%d", &matriz[i][j]);
+      }
+   }
+   
+   printf("\nO determinante é igual: %d\n", determinante(matriz, ordem));   // Ilustrar o determinante
+ 
+   return 0;
+}
+ 
+int determinante(int matriz[][MAT], int ordem){       // Função do calculo da determinante 
+   
+   int det = 0, j;
+   
+   if (ordem == 1) {
+   	
+      det = matriz[0][0];
+      
+   } else {
+   	
+      	for (j = 0 ; j < ordem; j++) {
+        det = det + matriz[0][j] * cofator(matriz, ordem, 0, j);
+      	}
+      
+   }
+   
+   return det;
+}
+ 
+ 
+int cofator(int matriz[][MAT], int ordem, int fila, int coluna){     // Função do cofator, método utilizado para calcular a determinante
+   
+   int submatriz[MAT][MAT];
+   int n = ordem - 1;
+   int i, j;
+   int x = 0;
+   int y = 0;
+   
+   for (i = 0; i < ordem; i++) {
+      for (j = 0; j < ordem; j++) {
+         if (i != fila && j != coluna) {
+            submatriz[x][y] = matriz[i][j];
+            y++;
+            if (y >= n) {
+               x++;
+               y = 0;
+            }
+         }
+      }
+   }
+   
+   return pow(-1.0, fila + coluna) * determinante(submatriz, n);
+}
