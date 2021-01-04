@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int main(void){
+
+	setlocale (LC_ALL,"");
+	int jogador, computador;
+	int pedra = 0,papel = 1,tesoura = 2, sair = 3;
+	
+	do {
+	
+	printf("-----------------------------------------------------------------------");
+	printf("\n Escolha:\n \n 0 - Pedra \n 1 - Papel \n 2 - Tesoura \n 3 - Sair \n\n - ");
+	scanf("%d", &jogador);
+	
+	computador = rand() % 2; 
+	
+	if (jogador < 0 || jogador > 3){
+		printf("Jogada inválida, insira novamente \n");
+	} else if (jogador == 3){
+		printf("Saindo, obrigado por jogar");
+		break;
+	}else if ( jogador == computador){
+		printf("\n Empate");
+		printf("\n Computador escolheu %i e vôce %i \n",computador, jogador);
+	} else if ((jogador - computador == -2) || (jogador - computador == 1)){
+		printf("\n Jogador venceu");
+		printf("\n Computador escolheu %i e vôce %i \n",computador, jogador);
+	} else {
+		printf("\n Computador venceu");
+		printf("\n Computador escolheu %i e vôce %i \n",computador, jogador);
+	}
+	
+	} while (jogador = 3);
+	
+ return (0);
+}
